@@ -4,10 +4,10 @@ class Program
 {
     static void Main() 
     {
-        bool lala = true;
-        while (lala) 
+        bool x = true;
+        while (x) 
         {
-            lala = new Userchoose().CommandChooser();
+            x = new UserWriteController().CommandChooser();
         }
     }
     

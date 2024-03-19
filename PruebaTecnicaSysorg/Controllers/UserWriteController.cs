@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace PruebaTecnicaSysorg.Controllers
 {
-    public class Userchoose
+    public class UserWriteController
     {
         public bool CommandChooser() 
         {
-            var command = Console.ReadLine();                        
-            return true; 
+            var command = Console.ReadLine();                                    
+            return new CommandsControllers().TypeCommand(command); ; 
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PruebaTecnicaSysorg.Clases;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,23 @@ namespace PruebaTecnicaSysorg.Services
 {
     public class AddCommandServices
     {
-        public void addcommand() 
+        public Add addcommand(string command)
         {
-            Console.WriteLine("--Se esta utilizando el comando add--");
+            try
+            {
+                var namefile = command.Split(' ').GetValue(1).ToString();
+                var addclass = new Add
+                {
+                    NameFile = namefile != string.Empty || namefile == null ? namefile : throw new Exception("ADD COMMAND ERROR : No se encuentra archivo"),                    
+                };
+                Console.WriteLine("ADD COMMAND : Se agrego el archivo exitosamente");
+                return addclass;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
         }
     }
 }

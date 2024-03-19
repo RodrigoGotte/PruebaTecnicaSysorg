@@ -1,13 +1,15 @@
-﻿using PruebaTecnicaSysorg.Controllers;
+﻿using PruebaTecnicaSysorg.Clases;
+using PruebaTecnicaSysorg.Controllers;
 
 class Program
 {
+    public static List<Add> list = new List<Add>();
     static void Main() 
-    {
-        bool x = true;
-        while (x) 
+    {        
+    bool lala = true;
+        while (lala) 
         {
-            x = new UserWriteController().CommandChooser();
+            lala = new UserWriteController().CommandChooser();
         }
     }
     

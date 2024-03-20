@@ -9,7 +9,7 @@ namespace PruebaTecnicaSysorg.Services
 {
     public class CommandsService
     {
-        List<Add> files = Program.list;
+        Commit commit = Program.list;
         public bool TypeCommand(string command) 
         {
             //instruction is the first word in command which introduces the user 
@@ -20,14 +20,17 @@ namespace PruebaTecnicaSysorg.Services
                 case "exit":
                     return false;               
                 case "add":
-                    files.Add(new AddCommandServices().addcommand(command));
+                    commit.Files.Add(new AddCommandServices().addcommand(command));
                     return true;                
                 case "commit":
-                    new CommitCommandServices().Commitcommand(files,command);
+                    var tarea = new CommitCommandServices().Commitcommand(commit.Files,command);
+                    commit.Message = tarea.Message;
+                    commit.InsertDate = tarea.InsertDate;
                     return true;               
                 case "push":
-                    new PushCommandServices().pushcommand();
-                    
+                    bool push = new PushCommandServices().pushcommand(commit);
+                    if (push)
+                        commit.Clear();
                     return true;
                 case "log":
                     new LogCommandServices().Logcommand();

@@ -30,10 +30,15 @@ namespace PruebaTecnicaSysorg.Services
                 case "push":
                     bool push = new PushCommandServices().pushcommand(commit);
                     if (push)
-                        commit.Clear();
+                    {
+                        Program.CommitHistory.Add(commit);
+                        commit.Files = new List<Add>();
+                        commit.Message = string.Empty;
+                        commit.InsertDate = null;
+                    }
                     return true;
                 case "log":
-                    new LogCommandServices().Logcommand();
+                    new LogCommandServices().Logcommand(Program.CommitHistory);
                     return true;
                 case "help":
                     new HelpCommandServices().helpcommand();

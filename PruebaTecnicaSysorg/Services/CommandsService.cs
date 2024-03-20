@@ -23,7 +23,7 @@ namespace PruebaTecnicaSysorg.Services
                     files.Add(new AddCommandServices().addcommand(command));
                     return true;                
                 case "commit":
-                    new CommitCommandServices().Commitcommand(files);
+                    new CommitCommandServices().Commitcommand(files,command);
                     return true;               
                 case "push":
                     new PushCommandServices().pushcommand();

@@ -7,8 +7,9 @@ class Program
     public static List<Commit> CommitHistory = new List<Commit>();
 
     static void Main() 
-    {        
-    bool continuidad = true;
+    {
+        Console.Clear();
+        bool continuidad = true;
         while (continuidad) 
         {
             continuidad = new CommandsControllers().TypeCommand(Console.ReadLine());

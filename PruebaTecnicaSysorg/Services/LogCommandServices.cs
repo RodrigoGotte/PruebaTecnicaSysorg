@@ -8,42 +8,44 @@ namespace PruebaTecnicaSysorg.Services
         public void Logcommand(List<Commit> history) 
         {
             Console.Clear();
-            int anchoTabla = 80;
-
-            // Caracteres para borde y separadores
-            char bordeHorizontal = '_';
-            char bordeVertical = '|';            
-            char espacio = ' ';
+            //Width of the table
+            int widthTabla = 80;
+            
+            //Chars to i need to use and Number of commits
+            char horizontal = '_';
+            char vertical = '|';            
+            char blanksp = ' ';
             int ncommit = 0;
 
-            // Crear StringBuilder
+            // Create StringBuilder
             StringBuilder sb = new StringBuilder();
 
-            foreach (var registro in history)
+            foreach (var register in history)
             {
-                sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
+                // Add headers
+                sb.AppendLine($"{horizontal.ToString().PadLeft(widthTabla, horizontal)}");
                 ncommit++;
-                sb.AppendLine($"{bordeVertical.ToString() + ncommit}° COMMIT");
-                
-                // Agregar encabezado
-                sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");            
-                sb.AppendLine($"{bordeVertical}  CREATION DATE {bordeVertical.ToString().PadLeft(5)} MESSAGES");
-                sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
+                sb.AppendLine($"{vertical.ToString() + ncommit}° COMMIT");                                
+                sb.AppendLine($"{horizontal.ToString().PadLeft(widthTabla, horizontal)}");            
+                sb.AppendLine($"{vertical}  CREATION DATE {vertical.ToString().PadLeft(5)} MESSAGES");
+                sb.AppendLine($"{horizontal.ToString().PadLeft(widthTabla, horizontal)}");
 
-                // Agregar filas            
-                sb.AppendLine($"{bordeVertical} {registro.InsertDate.ToString().PadLeft(15, espacio)} {bordeVertical} {registro.Message.PadLeft(1, espacio)}");
-                sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
-                sb.AppendLine($"{bordeVertical}  FILES  ");
-                sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
-                foreach (var archivo in registro.Files)
+                // Add rows            
+                sb.AppendLine($"{vertical} {register.InsertDate.ToString().PadLeft(15, blanksp)} {vertical} {register.Message.PadLeft(1, blanksp)}");
+                sb.AppendLine($"{horizontal.ToString().PadLeft(widthTabla, horizontal)}");
+                //Add header to file upload
+                sb.AppendLine($"{vertical}  FILES  ");
+                sb.AppendLine($"{horizontal.ToString().PadLeft(widthTabla, horizontal)}");
+                //Add rows to files
+                foreach (var file in register.Files)
                 {
-                    sb.AppendLine($"{bordeVertical}{archivo.NameFile}");
+                    sb.AppendLine($"{vertical}{file.NameFile}");
                 }
-                sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
+                sb.AppendLine($"{horizontal.ToString().PadLeft(widthTabla, horizontal)}");
                 sb.AppendLine();
                 sb.AppendLine();                
             }
-            // Imprimir la tabla
+            // Print the table
             Console.WriteLine(sb.ToString());
         }
     }

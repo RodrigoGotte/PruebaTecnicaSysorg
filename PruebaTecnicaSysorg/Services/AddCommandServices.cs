@@ -8,9 +8,11 @@ namespace PruebaTecnicaSysorg.Services
         {
             try
             {
+                //Get the name file of the command
                 var namefile = command.Split(' ').GetValue(1).ToString();
                 var addclass = new Add
                 {
+                    //Check if the message is empty and throw exception
                     NameFile = namefile != string.Empty ? namefile : throw new Exception(),
                 };
                 Console.WriteLine("ADD COMMAND : THE FILE WAS ADDED SUCCESFULLY!");

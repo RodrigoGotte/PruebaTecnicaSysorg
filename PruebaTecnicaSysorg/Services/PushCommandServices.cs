@@ -8,6 +8,7 @@ namespace PruebaTecnicaSysorg.Services
         {
             try 
             {
+                //Check if the user create a commit. 
                 if (commit.InsertDate == null) 
                     throw new Exception("PUSH COMMAND : COMMIT DOESN´T EXIST");
                 Console.WriteLine("PUSH COMMAND : Push is starting!");

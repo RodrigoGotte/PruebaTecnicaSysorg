@@ -10,6 +10,7 @@ namespace PruebaTecnicaSysorg.Services
     public class CommandsService
     {
         Commit commit = Program.list;
+        List<Commit> history = Program.CommitHistory;
         public bool TypeCommand(string command) 
         {
             //instruction is the first word in command which introduces the user 
@@ -28,14 +29,15 @@ namespace PruebaTecnicaSysorg.Services
                     commit.InsertDate = tarea.InsertDate;
                     return true;               
                 case "push":
-                    bool push = new PushCommandServices().pushcommand(commit);
+                    bool push = new PushCommandServices().pushcommand(commit);                    
                     if (push)
                     {
-                        Program.CommitHistory.Add(commit);
+                        var commitpusheado = new Commit { Files=commit.Files, InsertDate= commit.InsertDate, Message= commit.Message };
+                        history.Add(commitpusheado);
                         commit.Files = new List<Add>();
                         commit.Message = string.Empty;
                         commit.InsertDate = null;
-                    }
+                    }                    
                     return true;
                 case "log":
                     new LogCommandServices().Logcommand(Program.CommitHistory);

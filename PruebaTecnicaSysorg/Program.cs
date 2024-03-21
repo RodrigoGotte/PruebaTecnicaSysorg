@@ -3,15 +3,15 @@ using PruebaTecnicaSysorg.Controllers;
 
 class Program
 {
-    public static Commit list = new Commit { Files = new List<Add>(), InsertDate = null, Message = string.Empty };
+    public static Commit CommitCache = new Commit { Files = new List<Add>(), InsertDate = null, Message = string.Empty };
     public static List<Commit> CommitHistory = new List<Commit>();
 
     static void Main() 
     {        
-    bool lala = true;
-        while (lala) 
+    bool continuidad = true;
+        while (continuidad) 
         {
-            lala = new UserWriteController().CommandChooser();
+            continuidad = new CommandsControllers().TypeCommand(Console.ReadLine());
         }
     }
     

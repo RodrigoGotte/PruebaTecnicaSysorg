@@ -9,42 +9,51 @@ namespace PruebaTecnicaSysorg.Services
 {
     public class CommandsService
     {
-        Commit commit = Program.list;
+        
+        Commit cache = Program.CommitCache;
         List<Commit> history = Program.CommitHistory;
+
         public bool TypeCommand(string command) 
         {
             //instruction is the first word in command which introduces the user 
-            var instruction = command.Split(' ').First();            
+            var instruction = command.Split(' ').First();
+
             //compare the instruction with others
             switch (instruction) 
             {
                 case "exit":
-                    return false;               
+                    return false;
+
                 case "add":
-                    commit.Files.Add(new AddCommandServices().addcommand(command));
-                    return true;                
+                    cache.Files.Add(new AddCommandServices().addcommand(command));
+                    return true;
+                    
                 case "commit":
-                    var tarea = new CommitCommandServices().Commitcommand(commit.Files,command);
-                    commit.Message = tarea.Message;
-                    commit.InsertDate = tarea.InsertDate;
-                    return true;               
+                    var tarea = new CommitCommandServices().Commitcommand(cache.Files,command);
+                    cache.Message = tarea.Message;
+                    cache.InsertDate = tarea.InsertDate;
+                    return true;
+
                 case "push":
-                    bool push = new PushCommandServices().pushcommand(commit);                    
+                    bool push = new PushCommandServices().pushcommand(cache);                    
                     if (push)
                     {
-                        var commitpusheado = new Commit { Files=commit.Files, InsertDate= commit.InsertDate, Message= commit.Message };
+                        var commitpusheado = new Commit { Files=cache.Files, InsertDate= cache.InsertDate, Message= cache.Message };
                         history.Add(commitpusheado);
-                        commit.Files = new List<Add>();
-                        commit.Message = string.Empty;
-                        commit.InsertDate = null;
+                        cache.Files = new List<Add>();
+                        cache.Message = string.Empty;
+                        cache.InsertDate = null;
                     }                    
                     return true;
+
                 case "log":
                     new LogCommandServices().Logcommand(Program.CommitHistory);
                     return true;
+
                 case "help":
                     new HelpCommandServices().helpcommand();
                     return true;
+
                 default: 
                     return true;
             }

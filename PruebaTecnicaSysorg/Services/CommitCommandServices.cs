@@ -1,9 +1,4 @@
 ﻿using PruebaTecnicaSysorg.Clases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PruebaTecnicaSysorg.Services
 {
@@ -12,15 +7,15 @@ namespace PruebaTecnicaSysorg.Services
         public Commit Commitcommand(List<Add> files,string command) 
         {
             try 
-            {
+            {   if (files.Count() == 0) { throw new Exception("COMMIT COMMAND ERROR : FIRST UPLOAD A FILE."); }
                 var message = command.Split(' ').GetValue(1).ToString();
                 var commit = new Commit
                 {
                     Files = files,
                     InsertDate = DateTime.Now,
-                    Message = message == null || message == string.Empty ? throw new Exception("COMMIT COMMAND ERROR : No se escribio el mensaje") : message
+                    Message = message == string.Empty ? throw new Exception("COMMIT COMMAND ERROR : DON'T WRITE THE MESSAGE") : message
                 };
-                Console.WriteLine("COMMIT COMMAND: Se commiteo exitosamente");
+                Console.WriteLine("COMMIT COMMAND: THE COMMIT IS SUCCESFULLY.");
                 return commit;
             } 
             catch(Exception ex)

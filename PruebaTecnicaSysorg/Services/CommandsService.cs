@@ -1,9 +1,4 @@
 ﻿using PruebaTecnicaSysorg.Clases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PruebaTecnicaSysorg.Services
 {
@@ -15,46 +10,62 @@ namespace PruebaTecnicaSysorg.Services
 
         public bool TypeCommand(string command) 
         {
-            //instruction is the first word in command which introduces the user 
-            var instruction = command.Split(' ').First();
+            //option is the first word in command which introduces the user 
+            var option = command.Split(' ').First().ToLower();
 
-            //compare the instruction with others
-            switch (instruction) 
+            //Compare the instruction with others
+            switch (option) 
             {
+                //This command close the program
                 case "exit":
                     return false;
 
+                //This command add files in the commitCache
                 case "add":
-                    cache.Files.Add(new AddCommandServices().addcommand(command));
+                    var fileAdd = new AddCommandServices().addcommand(command);
+                    if (fileAdd != null) 
+                    { 
+                        cache.Files.Add(fileAdd);
+                    }                    
                     return true;
-                    
+                
+                //This command add message and date in the commitCache 
                 case "commit":
-                    var tarea = new CommitCommandServices().Commitcommand(cache.Files,command);
-                    cache.Message = tarea.Message;
-                    cache.InsertDate = tarea.InsertDate;
+                    var task = new CommitCommandServices().Commitcommand(cache.Files,command);
+                    if (task != null)
+                    {
+                        cache.Message = task.Message;
+                        cache.InsertDate = task.InsertDate;
+                    }                    
                     return true;
-
+                
+                //This command add the commit in commitHistory and restart the commitCache to do again the proccess if the user want a new commit.
                 case "push":
                     bool push = new PushCommandServices().pushcommand(cache);                    
                     if (push)
-                    {
-                        var commitpusheado = new Commit { Files=cache.Files, InsertDate= cache.InsertDate, Message= cache.Message };
-                        history.Add(commitpusheado);
+                    {                        
+                        //I need to make a new variable so that the commit is saved and then restored
+                        var commitpush = new Commit { Files=cache.Files, InsertDate= cache.InsertDate, Message= cache.Message };
+                        history.Add(commitpush);
+                        //Restart CommitCache
                         cache.Files = new List<Add>();
                         cache.Message = string.Empty;
                         cache.InsertDate = null;
                     }                    
                     return true;
-
+                
+                //This command show the other commit created in the session
                 case "log":
-                    new LogCommandServices().Logcommand(Program.CommitHistory);
+                    new LogCommandServices().Logcommand(history);
                     return true;
-
+                
+                //This command show the other commands can use the user
                 case "help":
                     new HelpCommandServices().helpcommand();
                     return true;
 
-                default: 
+                default:
+                    Console.WriteLine("COMMAND EXCEPTION : THE COMMAND IS NOT RECOGNIZED -- TRY 'HELP' TO SHOW COMMANDS CAN YOU USE.");
                     return true;
             }
         }

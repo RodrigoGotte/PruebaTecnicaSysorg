@@ -1,9 +1,4 @@
 ﻿using PruebaTecnicaSysorg.Clases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PruebaTecnicaSysorg.Services
 {
@@ -16,16 +11,17 @@ namespace PruebaTecnicaSysorg.Services
                 var namefile = command.Split(' ').GetValue(1).ToString();
                 var addclass = new Add
                 {
-                    NameFile = namefile != string.Empty || namefile != null ? namefile : throw new Exception("ADD COMMAND ERROR : No se encuentra archivo"),                    
+                    NameFile = namefile != string.Empty ? namefile : throw new Exception(),
                 };
-                Console.WriteLine("ADD COMMAND : Se agrego el archivo exitosamente");
+                Console.WriteLine("ADD COMMAND : THE FILE WAS ADDED SUCCESFULLY!");
                 return addclass;
-            }
+            }            
             catch (Exception ex)
             {
+                Console.WriteLine("ADD COMMAND ERROR : FILE NOT FOUND!");
                 Console.WriteLine(ex);
                 return null;
-            }
+            }            
         }
     }
 }

@@ -27,13 +27,13 @@ namespace PruebaTecnicaSysorg.Services
                 
                 // Agregar encabezado
                 sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");            
-                sb.AppendLine($"{bordeVertical} FECHA CREACION {bordeVertical.ToString().PadLeft(5)} MENSAJES");
+                sb.AppendLine($"{bordeVertical}  CREATION DATE {bordeVertical.ToString().PadLeft(5)} MESSAGES");
                 sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
 
                 // Agregar filas            
                 sb.AppendLine($"{bordeVertical} {registro.InsertDate.ToString().PadLeft(15, espacio)} {bordeVertical} {registro.Message.PadLeft(1, espacio)}");
                 sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
-                sb.AppendLine($"{bordeVertical} ARCHIVOS AÑADIDOS  ");
+                sb.AppendLine($"{bordeVertical}  FILES  ");
                 sb.AppendLine($"{bordeHorizontal.ToString().PadLeft(anchoTabla, bordeHorizontal)}");
                 foreach (var archivo in registro.Files)
                 {
